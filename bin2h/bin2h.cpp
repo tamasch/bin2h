@@ -165,12 +165,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	size_t filesize = in.tellg();
 	in.seekg(0, std::ios_base::beg);
 
-	out << "unsigned char "; 
-
 	//same trick as for namespace to get the id out
 	{
 		char out_buffer[1024];
 		int sprintf_count = sprintf_s(out_buffer, kIdentifierFormat, A.id.c_str());
+	
+		//array size, for use in code
+		out << "size_t ";
+		out.write(out_buffer, sprintf_count);
+		out << "_len = " << filesize << ";" << std::endl;
+
+		//and now, the array
+		out << "unsigned char "; 
 		out.write(out_buffer, sprintf_count);
 	}
 
@@ -184,7 +190,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		//buffer has to be unsigned for the sprintf to work as required.
 		unsigned char in_buffer[bufferLen];
 
-		const size_t chunk = bufferLen < filesize ? bufferLen : filesize;
+		const size_t chunk = i+bufferLen < filesize ? bufferLen : filesize-i;
 		in.read(reinterpret_cast<char*>(in_buffer), chunk);
 
 		for(unsigned j=0; j<chunk; ++j)
