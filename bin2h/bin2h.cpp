@@ -57,7 +57,7 @@ static const char* kIdentifierFormat = "%s";
 //prints help to stdout
 void Help()
 {
-	std::cout << "bin2h utility\n\n";
+	std::cout << "bin2h utility v1.01\n\n";
 
 	std::cout << "Interprets any file as plain binary data and dumps to a raw C/C++ array.\n";
 	std::cout << "usage: bin2h <in-file> <out-file> <opt-args>\n\n";
